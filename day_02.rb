@@ -15,7 +15,7 @@ class ShipNavigation
     end
   end
 
-  def end
+  def end_journey
     return @horizontal, @depth
   end
 end
@@ -26,7 +26,7 @@ input_list = input.readlines.map(&:chomp)
 input_list.each do |instruction|
   first_journey.move(*instruction.split)
 end
-x,y = first_journey.end
+x,y = first_journey.end_journey
 puts x*y
 
 class ShipNavigation2
@@ -48,7 +48,7 @@ class ShipNavigation2
     end
   end
 
-  def end
+  def end_journey
     return @horizontal, @depth
   end
 end
@@ -57,5 +57,5 @@ second_journey = ShipNavigation2.new
 input_list.each do |instruction|
   second_journey.move(*instruction.split)
 end
-x,y = second_journey.end
+x,y = second_journey.end_journey
 puts x*y
