@@ -1,5 +1,3 @@
-require "matrix"
-
 class BingoBoard
   def initialize(list)
     @values = list
