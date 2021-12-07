@@ -5,7 +5,6 @@ initial_fish_dict_count = {}
 9.times do |day_count|
   initial_fish_dict_count[day_count] = initial_fish_list.count(day_count)
 end
-p initial_fish_dict_count
 
 class FishCounter
   def initialize(count_dict)
