@@ -24,7 +24,7 @@ $x_length = input_list[0].length
 $height_map = input_list
 $distances_table ={"value"=>Array.new($x_length*$y_length, Float::INFINITY),
                    "ancestor"=>Array.new($x_length*$y_length, [])}
-$moves = [[0,-1],[0,1],[1,0],[-1,0]]
+$moves = [[0,1],[1,0]]
 current_y, current_x = 0, 0
 $distances_table["value"][current_y*$y_length+current_x] = 0
 
@@ -37,6 +37,5 @@ while true
     exit
   else
     check_around(current_y, current_x)
-    p current_y, current_x
   end
 end
