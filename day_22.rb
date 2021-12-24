@@ -32,6 +32,7 @@ class Area
       lines.push current[1]
       all_lines.push lines
     end
+    new_areas = []
     (all_lines[0].length/2).times do |a|
       (all_lines[1].length/2).times do |b|
         (all_lines[2].length/2).times do |c|
@@ -48,11 +49,12 @@ class Area
             end
           end
           if different
-            Area.new([@mode, *new_area])
+            new_areas.push Area.new([@mode, *new_area])
           end
         end
       end
     end
+    new_areas
   end
 
   def overflowing_field(new_input, input)
@@ -69,18 +71,24 @@ input_list = []
 input_list.push input.readlines.map {|row| [row[..2].rstrip] + row[3..].lstrip.gsub(/[^-|^\d]/, " ").split.map(&:to_i) }
 areas = []
 input_list[0].each do |new_area|
+  areas_to_add = []
+  areas_to_delete = []
   changed = false
   areas.each_with_index do |existing_area, index|
     comparison = existing_area.compare(new_area)
     if comparison
-      existing_area.separate(comparison)
+      areas_to_add.push *existing_area.separate(comparison)
       changed = true
-      areas.delete_at(index)
+      areas_to_delete.push index
     end
   end
-  unless changed == false and new_area[0] == 'off'
-    areas.push Area.new(new_area)
+  if changed == false
+    areas_to_add.push Area.new(new_area)
   end
+  areas_to_delete.reverse.each do |x|
+    areas.delete_at(x)
+  end
+  areas.push *areas_to_add
 end
 count_of_beacons = 0
 areas.map { |area| count_of_beacons += area.count_lights}
